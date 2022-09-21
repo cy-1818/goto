@@ -1,7 +1,6 @@
 var values = {};
 var nums = ["0","1","2","3","4","5","6","7","8","9","."];
 var notValue = ["*","/","-","+","!","?","<",">","=","%","#"];
-var limit = 2000;
 function goto(Program,Input){
   var program = Program;
   var code = program.split("\n");
@@ -9,8 +8,13 @@ function goto(Program,Input){
   var input = Input.split("\n");
   var labels = {}
   var line,n,i,k,l,w;
-  var time = Date.now()+limit;
-  values = {"true":true,"false":false,"und":undefined};
+  var time = Date.now();
+  values = {"true":true,
+            "false":false,
+            "und":undefined,
+            "inf":Infinity,
+            "limit":2000};
+  n=0
   while(n < code.length){
     if(code[n].startsWith("#define")){
       line = code[n].split(" ");
@@ -25,8 +29,8 @@ function goto(Program,Input){
     k = program.indexOf("/*",n);
     if(i == -1 && k == -1){
       break;
-    }else if(i == -1 || k < i){
-      i = lastIndexOf("\n",k);
+    }else if(i == -1 || (k < i && k!= -1)){
+      i = program.lastIndexOf("\n",k);
       line = program.slice(i,k);
       if((strCount(line,'"')-strCount(line,'\\"'))%2==0){
         i = program.indexOf("*/",k);
@@ -34,15 +38,22 @@ function goto(Program,Input){
       }else{
         n=k+2;
       }
-    }else if(k == -1 || i < k){
-      k = lastIndexOf("\n",i);
+    }else if(k == -1 || (i < k && i!= -1)){
+      k = program.lastIndexOf("\n",i);
       line = program.slice(k,i);
       if((strCount(line,'"')-strCount(line,'\\"'))%2==0){
         k = program.indexOf("\n",i);
-        program = program.slice(0,i) + program.slice(k+2);
+        program = program.slice(0,i) + program.slice(k);
       }else{
         n=i+2;
       }
+    }
+    if(Date.now()>time+values.limit){
+      output.push({type:"Runtime error",
+                     line:n,
+                     text:"Time is limit"
+                     });
+      break;
     }
   }
   code = program.split("\n");
@@ -72,10 +83,21 @@ function goto(Program,Input){
                      });
       }
     }
+    if(Date.now()>time+values.limit){
+      output.push({type:"Runtime error",
+                     line:n,
+                     text:"Time is limit"
+                     });
+      break;
+    }
     n++;
   }
   n = 0;
   while(n < code.length){
+    if(code[n].startsWith("#")){
+      n++;
+      continue;
+    }
     if(code[n].endsWith(";")){
       line = code[n];
       if(line.includes(" when ")){
@@ -136,7 +158,7 @@ function goto(Program,Input){
                      });
       }
     }
-    if(Date.now()>time){
+    if(Date.now()>time+values.limit){
       output.push({type:"Runtime error",
                      line:n,
                      text:"Time is limit"
@@ -281,6 +303,9 @@ function culcLine(s){
         }
         sl.splice(i-1,3,'"'+String(sl[i-1])[sl[i+1]]+'"');
         q--;
+      }else if(sl[q]=="="){
+        sl=["ERROR"];
+        break;
       }
     }
     for(var q=0;q<sl.length;q++){
