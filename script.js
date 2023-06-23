@@ -1,16 +1,14 @@
-eruda.init();
 var goto;
 var xhr = new XMLHttpRequest();
 xhr.open("get", "goto_interpreter.js")
 xhr.send();
 xhr.onreadystatechange = function() {
-  console.log(xhr.status);
   if( xhr.readyState === 4 && xhr.status === 200) {
     console.log(this.responseText);
     goto = eval(this.responseText);
+    console.log(goto);
   }
 };
-console.log(goto)
 function run(){
   document.getElementById("output").value="";
   var c=document.getElementById("code").value;
