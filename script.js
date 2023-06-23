@@ -1,6 +1,6 @@
 var goto;
 var xhr = new XMLHttpRequest();
-xhr.open("get", "img/goto_interpreter.js")
+xhr.open("get", "goto_interpreter.js")
 xhr.send();
 xhr.onreadystatechange = function() {
   if( xhr.readyState === 4 && xhr.status === 200) {
