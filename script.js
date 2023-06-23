@@ -3,6 +3,7 @@ var xhr = new XMLHttpRequest();
 xhr.open("get", "goto_interpreter.js")
 xhr.send();
 xhr.onreadystatechange = function() {
+  console.log(xhr.status);
   if( xhr.readyState === 4 && xhr.status === 200) {
     console.log(this.responseText);
     goto = eval(this.responseText);
