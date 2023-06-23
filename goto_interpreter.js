@@ -1,4 +1,4 @@
-{
+({
 	"values":{},
 	"nums":["0","1","2","3","4","5","6","7","8","9","."],
 	"notValue":["*","/","-","+","!","?","<",">","=","%","#"],
@@ -10,11 +10,13 @@
 	  var labels = {}
 	  var line,n,i,k,l,w;
 	  var time = Date.now();
-	  this.values = {"true":true,
-	            "false":false,
-	            "und":undefined,
-	            "inf":Infinity,
-	            "limit":2000};
+	  this.values = {
+	    "true":true,
+	    "false":false,
+	    "und":undefined,
+	    "inf":Infinity,
+	    "limit":2000
+	  };
 	  n=0
 	  while(n < code.length){
 	    if(code[n].startsWith("#define")){
@@ -50,10 +52,11 @@
 	      }
 	    }
 	    if(Date.now()>time+this.values.limit){
-	      output.push({type:"Runtime error",
-	                     line:n,
-	                     text:"Time is limit"
-	                     });
+	      output.push({
+	        type:"Runtime error",
+	        line:n,
+	        text:"Time is limit"
+	      });
 	      break;
 	    }
 	  }
@@ -62,33 +65,37 @@
 	  while(n < code.length){
 	    line = code[n];
 	    if(line.startsWith(" ")){
-	      output.push({type:"syntax error",
-	                   line:n,
-	                   text:"The line can't start with space"
-	                   });
+	      output.push({
+	        type:"syntax error",
+	        line:n,
+	        text:"The line can't start with space"
+	      });
 	    }else if(line.startsWith('"')){
 	      if(line.endsWith(':')){
 	        i=line.indexOf('"',1);
 	        if(i != -1){
 	          labels[line.slice(0,i+1)]=n;
 	        }else{
-	          output.push({type:"syntax error",
-	                     line:n,
-	                     text:"Can't find end of str"
-	                     });
+	          output.push({
+	            type:"syntax error",
+	            line:n,
+	            text:"Can't find end of str"
+	          });
 	        }
 	      }else{
-	        output.push({type:"syntax error",
-	                     line:n,
-	                     text:"The line making label must end with \":\""
-	                     });
+	        output.push({
+	          type:"syntax error",
+	          line:n,
+	          text:"The line making label must end with \":\""
+	        });
 	      }
 	    }
 	    if(Date.now()>time+this.values.limit){
-	      output.push({type:"Runtime error",
-	                     line:n,
-	                     text:"Time is limit"
-	                     });
+	      output.push({
+	        type:"Runtime error",
+	        line:n,
+	        text:"Time is limit"
+	      });
 	      break;
 	    }
 	    n++;
@@ -122,16 +129,18 @@
 	        if(labels.hasOwnProperty(w)){
 	          n = labels[w];
 	        }else{
-	          output.push({type:"reference error",
-	                       line:n,
-	                       text:"Can't find "+w+" as label name"
-	                       });
+	          output.push({
+	            type:"reference error",
+	            line:n,
+	            text:"Can't find "+w+" as label name"
+	          });
 	        }
 	      }else if(line.startsWith("goout")){
-	        output.push({type:"output",
-	                     line:n,
-	                     text:String(w)
-	                     });
+	        output.push({
+	          type:"output",
+	          line:n,
+	          text:String(w)
+	        });
 	      }else if(line.startsWith("getto")){
 	        i=line.indexOf(" ");
 	        this.values[line.slice(i+1,line.indexOf(" ",i+1))] = input[0];
@@ -144,24 +153,27 @@
 	        }
 	        this.values[i]=this.calc(line.slice(line.indexOf("=")+1,-1));
 	      }else{
-	        output.push({type:"syntax error",
-	                     line:n,
-	                     text:"Cant find "+line.slice(0,line.indexOf(" "))
-	                     });
+	        output.push({
+	          type:"syntax error",
+	          line:n,
+	          text:"Cant find "+line.slice(0,line.indexOf(" "))
+	        });
 	      }
 	    }else{
 	      if(!code[n].endsWith(":")){
-	        output.push({type:"syntax error",
-	                     line:n,
-	                     text:"The line must end with \";\""
-	                     });
+	        output.push({
+	          type:"syntax error",
+	          line:n,
+	          text:"The line must end with \";\""
+	        });
 	      }
 	    }
 	    if(Date.now()>time+this.values.limit){
-	      output.push({type:"Runtime error",
-	                     line:n,
-	                     text:"Time is limit"
-	                     });
+	      output.push({
+	        type:"Runtime error",
+	        line:n,
+	        text:"Time is limit"
+	      });
 	      break;
 	    }
 	    n++;
@@ -396,4 +408,4 @@
 	  }
 	  return sl[0];
 	}
-}
+})
