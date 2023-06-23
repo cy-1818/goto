@@ -4,9 +4,7 @@ xhr.open("get", "goto_interpreter.js")
 xhr.send();
 xhr.onreadystatechange = function() {
   if( xhr.readyState === 4 && xhr.status === 200) {
-    console.log(this.responseText);
     goto = eval(this.responseText);
-    console.log(goto);
   }
 };
 function run(){
