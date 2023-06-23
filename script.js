@@ -1,3 +1,4 @@
+eruda.init();
 var goto;
 var xhr = new XMLHttpRequest();
 xhr.open("get", "goto_interpreter.js")
