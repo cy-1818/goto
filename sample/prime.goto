@@ -1,0 +1,18 @@
+a=1;
+getto b;
+b=b!;
+e=1;
+goout 2;
+"main":
+goto "end" when e>=b;
+c=2;
+a=a+1;
+"loop":
+goto "main" when a%c == 0;
+c=c+1;
+goto "loop" when a>c;
+goout a;
+e=e+1;
+goto "main";
+"end":
+goout "end";
