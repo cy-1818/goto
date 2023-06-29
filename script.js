@@ -18,6 +18,6 @@ function run(){
   goto.input = inp;
   var out = goto.main(c);
   for(var r in out){
-    ou.value+="\n"+out[r].type+": Line "+out[r].line+" : "+out[r].text;
+    ou.value+=out[r].type+": Line "+out[r].line+" : "+out[r].text+"\n";
   }
 }
