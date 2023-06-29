@@ -5,6 +5,9 @@ xhr.send();
 xhr.onreadystatechange = function() {
   if( xhr.readyState === 4 && xhr.status === 200) {
     goto = eval(this.responseText);
+    goto.getInput = function(){
+      return this.input.shift();
+    }
   }
 };
 function run(){
@@ -12,11 +15,9 @@ function run(){
   var c=document.getElementById("code").value;
   var inp = document.getElementById("input").value;
   var ou=document.getElementById("output");
-  var out = goto.main(c,inp);
+  goto.input = inp;
+  var out = goto.main(c);
   for(var r in out){
-    if(out[r].text.startsWith('"')){
-      out[r].text=out[r].text.slice(1,-1);
-    }
     ou.value+="\n"+out[r].type+": Line "+out[r].line+" : "+out[r].text;
   }
 }
