@@ -2,12 +2,11 @@
 	"values":{},
 	"nums":["0","1","2","3","4","5","6","7","8","9","."],
 	"notValue":["*","/","-","+","!","?","<",">","=","%","#"],
-	"main":function(Program,Input){
+	"main":(async function(Program){
 	  var program = Program;
 	  var code = program.split("\n");
 	  var output = [];
-	  var input = Input.split("\n");
-	  var labels = {}
+	  var labels = {};
 	  var line,n,i,k,l,w;
 	  var time = Date.now();
 	  this.values = {
@@ -17,7 +16,7 @@
 	    "inf":Infinity,
 	    "limit":2000
 	  };
-	  n=0
+	  n=0;
 	  while(n < code.length){
 	    if(code[n].startsWith("#define")){
 	      line = code[n].split(" ");
@@ -142,9 +141,7 @@
 	          text:String(w)
 	        });
 	      }else if(line.startsWith("getto")){
-	        i=line.indexOf(" ");
-	        this.values[line.slice(i+1,line.indexOf(" ",i+1))] = input[0];
-	        input.shift();
+	        this.values[line.slice(i+1,line.indexOf(" ",i+1))] = await this.getInput();
 	      }else if(line.includes("=")){
 	        if(line.indexOf(" ")<line.indexOf("=")&&line.includes(" ")){
 	          i=line.slice(0,line.indexOf(" "));
@@ -179,7 +176,7 @@
 	    n++;
 	  }
 	  return output;
-	},
+	}),
 	"strCount":function(s,q){
 	  var m = 0;
 	  var a = 0;
@@ -407,5 +404,8 @@
 	    }
 	  }
 	  return sl[0];
-	}
+	},
+	"getInput":(async function(){
+	  return "None";
+	})
 })
