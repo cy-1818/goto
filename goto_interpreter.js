@@ -5,7 +5,6 @@
 	"main":(async function(Program){
 	  var program = Program;
 	  var code = program.split("\n");
-	  var output = [];
 	  var labels = {};
 	  var line,n,i,k,l,w;
 	  var time = Date.now();
@@ -16,6 +15,7 @@
 	    "inf":Infinity,
 	    "limit":2000
 	  };
+	  this.setUp();
 	  n=0;
 	  while(n < code.length){
 	    if(code[n].startsWith("#define")){
@@ -51,7 +51,7 @@
 	      }
 	    }
 	    if(Date.now()>time+this.values.limit){
-	      output.push({
+	      await this.printOutput({
 	        type:"Runtime error",
 	        line:n,
 	        text:"Time is limit"
@@ -64,7 +64,7 @@
 	  while(n < code.length){
 	    line = code[n];
 	    if(line.startsWith(" ")){
-	      output.push({
+	      await this.printOutput({
 	        type:"syntax error",
 	        line:n,
 	        text:"The line can't start with space"
@@ -75,14 +75,14 @@
 	        if(i != -1){
 	          labels[line.slice(0,i+1)]=n;
 	        }else{
-	          output.push({
+	          await this.printOutput({
 	            type:"syntax error",
 	            line:n,
 	            text:"Can't find end of str"
 	          });
 	        }
 	      }else{
-	        output.push({
+	        await this.printOutput({
 	          type:"syntax error",
 	          line:n,
 	          text:"The line making label must end with \":\""
@@ -90,7 +90,7 @@
 	      }
 	    }
 	    if(Date.now()>time+this.values.limit){
-	      output.push({
+	      await this.printOutput({
 	        type:"Runtime error",
 	        line:n,
 	        text:"Time is limit"
@@ -128,14 +128,14 @@
 	        if(labels.hasOwnProperty(w)){
 	          n = labels[w];
 	        }else{
-	          output.push({
+	          await this.printOutput({
 	            type:"reference error",
 	            line:n,
 	            text:"Can't find "+w+" as label name"
 	          });
 	        }
 	      }else if(line.startsWith("goout")){
-	        output.push({
+	        await this.printOutput({
 	          type:"output",
 	          line:n,
 	          text:String(w)
@@ -150,7 +150,7 @@
 	        }
 	        this.values[i]=this.calc(line.slice(line.indexOf("=")+1,-1));
 	      }else{
-	        output.push({
+	        await this.printOutput({
 	          type:"syntax error",
 	          line:n,
 	          text:"Cant find "+line.slice(0,line.indexOf(" "))
@@ -158,7 +158,7 @@
 	      }
 	    }else{
 	      if(!code[n].endsWith(":")){
-	        output.push({
+	        await this.printOutput({
 	          type:"syntax error",
 	          line:n,
 	          text:"The line must end with \";\""
@@ -166,7 +166,7 @@
 	      }
 	    }
 	    if(Date.now()>time+this.values.limit){
-	      output.push({
+	      await this.printOutput({
 	        type:"Runtime error",
 	        line:n,
 	        text:"Time is limit"
@@ -175,7 +175,7 @@
 	    }
 	    n++;
 	  }
-	  return output;
+	  return this.End();
 	}),
 	"strCount":function(s,q){
 	  var m = 0;
@@ -407,5 +407,14 @@
 	},
 	"getInput":(async function(){
 	  return "None";
-	})
+	}),
+	"printOutput":function(obj){
+	  this.output.push(obj);
+	},
+	"End":function(){
+	  return this.output;
+	},
+	"setUp":function(){
+	  this.output = [];
+	}
 })
