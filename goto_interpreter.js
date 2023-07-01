@@ -141,6 +141,7 @@
 	          text:String(w)
 	        });
 	      }else if(line.startsWith("getto")){
+	        i=line.indexOf(" ");
 	        this.values[line.slice(i+1,line.indexOf(" ",i+1))] = await this.getInput();
 	      }else if(line.includes("=")){
 	        if(line.indexOf(" ")<line.indexOf("=")&&line.includes(" ")){
