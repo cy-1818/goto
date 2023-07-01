@@ -406,12 +406,12 @@
 	  }
 	  return sl[0];
 	},
-	"getInput":(async function(){
+	"getInput":function(){
 	  return "None";
-	}),
-	"printOutput":(async function(obj){
+	},
+	"printOutput":function(obj){
 	  this.output.push(obj);
-	}),
+	},
 	"End":function(){
 	  return this.output;
 	},
