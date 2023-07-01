@@ -8,6 +8,7 @@ xhr.onreadystatechange = function() {
     goto.getInput = function(){
       return this.input.shift();
     }
+    console.log("OK");
   }
 };
 function run(){
@@ -17,6 +18,7 @@ function run(){
   var ou=document.getElementById("output");
   goto.input = inp;
   var out = goto.main(c);
+  console.oog(out);
   for(var r in out){
     ou.value+=out[r].type+": Line "+out[r].line+" : "+out[r].text+"\n";
   }
