@@ -3,7 +3,7 @@
 	"nums":["0","1","2","3","4","5","6","7","8","9","."],
 	"notValue":["*","/","-","+","!","?","<",">","=","%","#"],
 	"main":(async function(Program){
-	  var program = Program;
+	  var program = Program.trim();
 	  var code = program.split("\n");
 	  var labels = {};
 	  var line,n,i,k,l,w;
