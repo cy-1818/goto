@@ -408,9 +408,9 @@
 	"getInput":(async function(){
 	  return "None";
 	}),
-	"printOutput":function(obj){
+	"printOutput":(async function(obj){
 	  this.output.push(obj);
-	},
+	}),
 	"End":function(){
 	  return this.output;
 	},
