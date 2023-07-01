@@ -14,7 +14,7 @@ xhr.onreadystatechange = function() {
 async function run(){
   document.getElementById("output").value="";
   var c=document.getElementById("code").value;
-  var inp = document.getElementById("input").value;
+  var inp = document.getElementById("input").value.split("\n")
   var ou=document.getElementById("output");
   goto.input = inp;
   var out = await goto.main(c);
