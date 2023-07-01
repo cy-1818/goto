@@ -5,9 +5,9 @@ xhr.send();
 xhr.onreadystatechange = function() {
   if( xhr.readyState === 4 && xhr.status === 200) {
     goto = eval(this.responseText);
-    goto.getInput = function(){
+    goto.getInput = (async function(){
       return this.input.shift();
-    }
+    })
     console.log("OK");
   }
 };
