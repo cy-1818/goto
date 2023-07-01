@@ -18,7 +18,7 @@ function run(){
   var ou=document.getElementById("output");
   goto.input = inp;
   var out = goto.main(c);
-  console.oog(out);
+  console.log(out);
   for(var r in out){
     ou.value+=out[r].type+": Line "+out[r].line+" : "+out[r].text+"\n";
   }
