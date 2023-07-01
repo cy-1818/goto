@@ -11,14 +11,15 @@ xhr.onreadystatechange = function() {
     console.log("OK");
   }
 };
-function run(){
+async function run(){
   document.getElementById("output").value="";
   var c=document.getElementById("code").value;
   var inp = document.getElementById("input").value;
   var ou=document.getElementById("output");
   goto.input = inp;
-  var out = goto.main(c);
+  var out = await goto.main(c);
   console.log(out);
+  console.log(goto);
   for(var r in out){
     ou.value+=out[r].type+": Line "+out[r].line+" : "+out[r].text+"\n";
   }
