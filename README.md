@@ -61,3 +61,5 @@ str#num、とするとC言語などでいうstr[num]と同じことができま�
 javascriptの動く環境なら基本動きます。
 
 まずgoto_interpreter.jsの中身を文字列として取得して、それをevalでオブジェクトにしてください。そしてgetInputやprintOutputなど一部の関数を環境に合わせてオーバーライドした上でmain関数にgotoで書かれたプログラムを文字列として渡すことで実行可能です。
+
+とにかく使ってみたい！という変人は[こちら](https://cy-1818.github.io/goto/)を使ってみてください。
