@@ -317,7 +317,10 @@
 	    }
 	    for(var q=0;q<sl.length;q++){
 	      if(sl[q]=="*"){
-	        if(typeof(sl[q+1])=="string"){
+	        if(typeof(sl[q-1])=="boolean"&&typeof(sl[q+1])=="boolean"){
+	          sl.splice(q-1,3,sl[q-1]&&sl[q+1]);
+	          q--;
+	        }else if(typeof(sl[q+1])=="string"){
 	          sl=["ERROR"];
 	        }else if(typeof(sl[q-1])=="string"){
 	          if(sl[q-1].startsWith('"')){
@@ -349,7 +352,10 @@
 	    }
 	    for(var q=0;q<sl.length;q++){
 	      if(sl[q]=="+"){
-	        if(typeof(sl[q-1])=="string" && sl[q-1].startsWith('"')){ 
+	        if(typeof(sl[q-1])=="boolean"&&typeof(sl[q+1])=="boolean"){
+	          sl.splice(q-1,3,sl[q-1]||sl[q+1]);
+	          q--;
+	        }else if(typeof(sl[q-1])=="string" && sl[q-1].startsWith('"')){ 
 	          sl[q-1]=sl[q-1].slice(0,-1);
 	        }
 	        if(typeof(sl[q+1])=="string" && sl[q+1].startsWith('"')){
