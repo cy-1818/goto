@@ -17,7 +17,7 @@ async function run(){
   var inp = document.getElementById("input").value.split("\n")
   var ou=document.getElementById("output");
   goto.input = inp;
-  var out = goto.main(c);
+  var out = await goto.main(c);
   console.log(out);
   console.log(goto);
   for(var r in out){
