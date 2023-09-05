@@ -64,6 +64,6 @@ If your environment supports javascript, it basically works.
 
 First, get the contents of goto_interpreter.js as a string and make it an object by eval. Then, override some functions such as getInput and printOutput to suit your environment, and pass the program written in goto to the main function as a string to execute it.
 
-If you want to try it anyway, click here! If you are a freak, try [here](https://cy-1818.github.io/goto/).
+If you want to try it anyway, click [this](https://cy-1818.github.io/goto/)!
 
 Special thanks : [DeepL translation](https://www.deepl.com/app/?utm_source=ios&utm_medium=app&utm_campaign=share-translation)
