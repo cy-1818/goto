@@ -355,14 +355,16 @@
 	        if(typeof(sl[q-1])=="boolean"&&typeof(sl[q+1])=="boolean"){
 	          sl.splice(q-1,3,sl[q-1]||sl[q+1]);
 	          q--;
-	        }else if(typeof(sl[q-1])=="string" && sl[q-1].startsWith('"')){ 
-	          sl[q-1]=sl[q-1].slice(0,-1);
-	        }
-	        if(typeof(sl[q+1])=="string" && sl[q+1].startsWith('"')){
-	          sl[q+1]=sl[q+1].slice(1);
-	        }
-	        sl.splice(q-1,3,sl[q-1]+sl[q+1]);
-	        q--;
+	        }else{
+		  if(typeof(sl[q-1])=="string" && sl[q-1].startsWith('"')){ 
+	            sl[q-1]=sl[q-1].slice(0,-1);
+	          }
+	          if(typeof(sl[q+1])=="string" && sl[q+1].startsWith('"')){
+	            sl[q+1]=sl[q+1].slice(1);
+	          }
+	          sl.splice(q-1,3,sl[q-1]+sl[q+1]);
+	          q--;
+		}
 	      }else if(sl[q]=="-"){
 	        if(typeof(sl[q-1])=="string"||typeof(sl[q+1])=="string"){
 	          sl=["ERROR"];
